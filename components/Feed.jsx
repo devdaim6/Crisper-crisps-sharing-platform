@@ -21,7 +21,9 @@ const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [prompts, setPrompts] = useState("");
 
-  const handleSearchChange = (e) => {};
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value)
+  };
 
   useEffect(() => {
     const fetchPrompts = async () => {
