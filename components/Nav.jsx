@@ -6,13 +6,13 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = () => {
   // const isUserLogged = true;
-  const {data:session} = useSession()
+  const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
   useEffect(() => {
     const setUpProviders = async () => {
       const response = await getProviders();
-      // alert(response)
+
       setProviders(response);
     };
 
@@ -31,8 +31,7 @@ const Nav = () => {
         />
         <p className="logo_text">Crisper</p>
       </Link>
-{/* {alert(session?.user)} */}
-{/* {alert(JSON.stringify(providers))} */}
+
       {/* Desktop nav */}
       <div className="sm:flex hidden">
         {session?.user ? (
@@ -103,12 +102,12 @@ const Nav = () => {
                   Create Prompt
                 </Link>
                 <button
-                type="button"
-                onClick={()=>{
-                  setToggleDropdown(false);
-                  signOut();
-                }}
-                className="mt-5 w-full black_btn"
+                  type="button"
+                  onClick={() => {
+                    setToggleDropdown(false);
+                    signOut();
+                  }}
+                  className="mt-5 w-full black_btn"
                 >
                   Sign Out
                 </button>
