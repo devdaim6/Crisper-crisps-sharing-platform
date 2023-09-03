@@ -56,7 +56,7 @@ const PromptCard = ({ prompt, handleTagClick ,handleEdit,handleDelete }) => {
           handleTagClick && handleTagClick(prompt.tag);
         }}
       >
-        {prompt.tag}
+        #{prompt.tag}
       </p>
       {session?.user.id === prompt.creator._id && pathName === "/profile" && (
         <div className="mt-5 flex-center gap-4 border-t border-grey-100 pt-3">

@@ -16,9 +16,7 @@ const EditPrompt = () => {
 
   const promptId = searchParams.get("id");
 
-  //   const promptId = searchParams ? searchParams.get('id') : null;
   useEffect(() => {
-    //   console.log(promptId)
     const getPromptDetails = async () => {
       const response = await fetch(`/api/prompt/${promptId}`);
       const data = await response.json();
@@ -27,9 +25,7 @@ const EditPrompt = () => {
         prompt: data.prompt,
         tag: data.tag,
       });
-      //   console.log(data);
     };
-    // console.log(searchParams)
     if (promptId) getPromptDetails();
   }, [promptId]);
 
