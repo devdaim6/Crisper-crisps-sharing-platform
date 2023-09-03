@@ -20,9 +20,11 @@ const MyProfile = () => {
   }, []);
 
   const handleEdit = async (prompt) => {
-    console.log(prompt)
+    router.push(`/update-crisp?id=${prompt._id}`)
   };
-  const handleDelete = async (prompt) => {};
+  const handleDelete = async (prompt) => {
+    console.log("delete")
+  };
   return (
     <Profile
       name={"Daim"}
