@@ -4,7 +4,7 @@ const Form = ({ type, crisp, setCrisp, submitting, handleSubmit }) => {
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left">
-        <span className="blue_gradient">{type} Prompt</span>
+        <span className="blue_gradient">{type} Crisp</span>
       </h1>
       <p className="desc text-left max-w-md">{type} and Share Crisps</p>
       <form
@@ -14,7 +14,7 @@ const Form = ({ type, crisp, setCrisp, submitting, handleSubmit }) => {
       >
         <label htmlFor="">
           <span className="font-satoshi font-semibold text-base text-grey-700">
-            Your Prompt
+            Your Crisp
           </span>
         </label>
         <textarea
@@ -22,7 +22,7 @@ const Form = ({ type, crisp, setCrisp, submitting, handleSubmit }) => {
           onChange={(e) => {
             setCrisp({ ...crisp, prompt: e.target.value });
           }}
-          placeholder="Your Prompt Here..."
+          placeholder="Your Crisp Here..."
           required
           className="form_textarea"
         ></textarea>
@@ -49,7 +49,7 @@ const Form = ({ type, crisp, setCrisp, submitting, handleSubmit }) => {
           disabled={submitting}
           className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white "
           >
-{submitting ? `${type}...` : type}
+{submitting ? `...` : type}
           </button>
         </div>
       </form>

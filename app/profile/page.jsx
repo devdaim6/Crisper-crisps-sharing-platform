@@ -23,8 +23,20 @@ const MyProfile = () => {
     router.push(`/update-crisp?id=${prompt._id}`)
   };
   const handleDelete = async (prompt) => {
-    console.log("delete")
-  };
+    const hasConfirmed=confirm("Are you sure to Delete this Crisp ?")
+    if(hasConfirmed){
+        try {
+            await fetch(`/api/prompt/${prompt._id.toString()}`, {method:"DELETE"})
+            const filteredCrisps=prompts.filter((p)=>{
+                p._id!==prompt._id
+            })
+            setPrompts(filteredCrisps)
+            router.push('/')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+};
   return (
     <Profile
       name={"Daim"}
