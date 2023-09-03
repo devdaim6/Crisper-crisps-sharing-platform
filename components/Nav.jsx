@@ -5,16 +5,18 @@ import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = () => {
-  const isUserLogged = true;
+  // const isUserLogged = true;
+  const {data:session} = useSession()
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
   useEffect(() => {
-    const setProviders = async () => {
+    const setUpProviders = async () => {
       const response = await getProviders();
+      alert(response)
       setProviders(response);
     };
 
-    setProviders();
+    setUpProviders();
   }, []);
 
   return (
@@ -29,20 +31,21 @@ const Nav = () => {
         />
         <p className="logo_text">Crisper</p>
       </Link>
-
+{/* {alert(session?.user)} */}
+{/* {alert(JSON.stringify(providers))} */}
       {/* Desktop nav */}
       <div className="sm:flex hidden">
-        {isUserLogged ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
-              Create Post
+              Create Prompt
             </Link>
             <button type="button" onClick={signOut} className="outline_btn">
               Sign Out
             </button>
             <Link className="" href="/profile">
               <Image
-                src="/assets/images/logo.svg" //filhaal ke liye until we get real User Images
+                src={session?.user.image} //filhaal ke liye until we get real User Images
                 width={37}
                 height={37}
                 className="rounded-full"
@@ -69,10 +72,10 @@ const Nav = () => {
 
       {/* Mobile nav */}
       <div className="sm:hidden flex relative">
-        {isUserLogged ? (
+        {session?.user ? (
           <div className="flex">
             <Image
-              src="/assets/images/logo.svg"
+              src={session?.user.image}
               width={37}
               height={37}
               className="rounded-full"
