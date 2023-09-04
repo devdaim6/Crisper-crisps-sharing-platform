@@ -7,19 +7,21 @@ import PromptCard from "@components/PromptCard";
 import { useRouter } from "next/navigation";
 import PromptCardList from "@components/PromptCardList";
 const Feed = () => {
+  // States
   const [searchText, setSearchText] = useState("");
   const [prompts, setPrompts] = useState("");
   const [loadingState, setLoadingState] = useState(false);
   const [searchedState, setSearchedState] = useState(false);
   const [searchedResults, setSearchedResults] = useState([]);
-  // const [searchTimeout, setSearchTimeout] = useState(null);
-  // const router = useRouter();
+
+  // Onclick Search Method
   const handleSearchChange = (e) => {
     e.preventDefault();
     setSearchedState(true);
     setSearchedResults(filterPrompts(searchText));
   };
 
+  // filtering Prompts
   const filterPrompts = (searchText) => {
     const regex = new RegExp(searchText, "i"); // 'i' flag for case-insensitive search
     return prompts.filter(
@@ -31,6 +33,7 @@ const Feed = () => {
     );
   };
 
+  // Fetching Data
   useEffect(() => {
     const fetchPrompts = async () => {
       setLoadingState(true);
@@ -43,9 +46,9 @@ const Feed = () => {
     fetchPrompts();
   }, []);
 
+  // Toggle onClick on Tags
   const handleTagClick = (tagName) => {
     setSearchedState(true);
-    // setSearchText(tagName);
     setSearchedResults(filterPrompts(tagName));
   };
 
@@ -62,8 +65,11 @@ const Feed = () => {
           required
           className="search_input peer"
         />
-        <button className='mx-2 outline_btn'
-        onClick={handleSearchChange} type="button">
+        <button
+          className="mx-2 outline_btn"
+          onClick={handleSearchChange}
+          type="button"
+        >
           Search
         </button>
       </form>
@@ -74,11 +80,7 @@ const Feed = () => {
           handleTagClick={handleTagClick}
         />
       ) : (
-        <PromptCardList
-          prompts={prompts}
-          // SearchedResults={searchedResults}
-          handleTagClick={handleTagClick}
-        />
+        <PromptCardList prompts={prompts} handleTagClick={handleTagClick} />
       )}
     </section>
   );
