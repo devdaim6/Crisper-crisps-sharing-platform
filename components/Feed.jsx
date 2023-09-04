@@ -1,11 +1,40 @@
 "use client";
 import { useState, useEffect } from "react";
-import Loading from "./Loading";
-import Link from "next/link";
+// import Loading from "./Loading";
+// import Link from "next/link";
 import PromptCard from "@components/PromptCard";
 // import { useRouter } from "next/router";
-import { useRouter } from "next/navigation";
-import PromptCardList from "@components/PromptCardList";
+// import { useRouter } from "next/navigation";
+const PromptCardList = ({ prompts, search, handleTagClick }) => {
+  return (
+    <div className="mt-16 prompt_layout">
+      {search ? (
+        search ? (
+          search.map((res) => (
+            <PromptCard
+              key={res._id}
+              prompt={res}
+              handleTagClick={handleTagClick}
+            />
+          ))
+        ) : (
+          <></>
+        )
+      ) : Array.isArray(prompts) ? (
+        prompts.map((prompt) => (
+          <PromptCard
+            key={prompt._id}
+            prompt={prompt}
+            handleTagClick={handleTagClick}
+          />
+        ))
+      ) : (
+        <></>
+      )}
+    </div>
+  );
+};
+
 const Feed = () => {
   // States
   const [searchText, setSearchText] = useState("");
