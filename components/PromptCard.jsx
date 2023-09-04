@@ -30,7 +30,7 @@ const PromptCard = ({ prompt, handleTagClick, handleEdit, handleDelete }) => {
           />
           <div className="flex flex-col">
             <h3 className="font-satoshi font-semibold text-grey-700">
-              {prompt.creator.username}
+              @{prompt.creator.username}
             </h3>
             <p className="font-inter text-sm text-grey-300">
               {prompt.creator.email}
