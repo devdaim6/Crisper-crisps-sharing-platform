@@ -31,7 +31,7 @@ const MyProfile = () => {
                 p._id!==prompt._id
             })
             setPrompts(filteredCrisps)
-            router.push('/')
+            router.back()
         } catch (error) {
             console.log(error)
         }
@@ -39,7 +39,8 @@ const MyProfile = () => {
 };
   return (
     <Profile
-      name={"Daim"}
+      name={session?.user.name}
+      email={session?.user.email}
       desc={"User Profile"}
       data={prompts}
       handleEdit={handleEdit}
