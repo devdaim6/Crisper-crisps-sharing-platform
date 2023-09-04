@@ -36,6 +36,15 @@ const Nav = () => {
 
       {/* Desktop nav */}
       <div className="sm:flex hidden">
+      <button
+      className="mx-2 outline_btn"
+     
+        onClick={() => {
+          router.refresh();
+        }}
+      >
+        Refresh
+      </button>
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
@@ -80,6 +89,7 @@ const Nav = () => {
 
       {/* Mobile nav */}
       <div className="sm:hidden flex relative">
+      
         {session?.user ? (
           <div className="flex">
             <Image

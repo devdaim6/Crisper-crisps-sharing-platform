@@ -27,7 +27,7 @@ const Form = ({ type, crisp, setCrisp, submitting, handleSubmit }) => {
         ></textarea>
         <label htmlFor="">
           <span className="font-satoshi font-semibold text-base text-grey-700">
-            HashTags{" "}
+            HashTag{" "}
           </span>
         </label>
         <input
@@ -35,7 +35,7 @@ const Form = ({ type, crisp, setCrisp, submitting, handleSubmit }) => {
           onChange={(e) => {
             setCrisp({ ...crisp, tag: e.target.value });
           }}
-          placeholder="#coding , #website , #Next.js etc..."
+          placeholder="(add only one tag) #website , #Next.js etc..."
           required
           className="form_input"
         ></input>
