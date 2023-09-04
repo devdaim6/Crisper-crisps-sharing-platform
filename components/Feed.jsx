@@ -1,8 +1,7 @@
 "use client";
-import { lazy, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Loading from "./Loading";
-const PromptCard = lazy(() => import("@components/PromptCard"));
-import { Suspense } from "react";
+import PromptCard from "@components/PromptCard";
 const PromptCardList = ({ prompts, handleTagClick }) => {
   return (
     <div className="mt-16 prompt_layout">
@@ -54,9 +53,7 @@ const Feed = () => {
         />
       </form>
       {loadingState && <Loading /> ? null : (
-        <Suspense fallback={<Loading />}>
-          <PromptCardList prompts={prompts} handleTagClick={() => {}} />
-        </Suspense>
+        <PromptCardList prompts={prompts} handleTagClick={() => {}} />
       )}
     </section>
   );
