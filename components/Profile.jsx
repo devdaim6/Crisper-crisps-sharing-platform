@@ -1,5 +1,16 @@
-import PromptCard from "./PromptCard";
-const Profile = ({ name, email, desc, data, handleEdit, handleDelete }) => {
+import { lazy } from "react";
+import Loader from "@components/Loading";
+const PromptCard = lazy(() => import("@components/PromptCard"));
+import { Suspense } from "react";
+const Profile = ({
+  name,
+  email,
+  desc,
+  data,
+  handleEdit,
+  handleDelete,
+  Loading,
+}) => {
   return (
     <section className="w-full">
       <h1 className="head_text text-left">
@@ -23,24 +34,35 @@ const Profile = ({ name, email, desc, data, handleEdit, handleDelete }) => {
           <span className=" orange_gradient ">Crisps</span>
         </p>
       )}
-      <div className="mt-16 prompt_layout">
-        {Array.isArray(data) ? (
-          data.map((prompt) => (
-            <PromptCard
-              key={prompt._id}
-              prompt={prompt}
-              handleEdit={() => {
-                handleEdit && handleEdit(prompt);
-              }}
-              handleDelete={() => {
-                handleDelete && handleDelete(prompt);
-              }}
-            />
-          ))
-        ) : (
-          <></>
+
+      <Suspense
+        fallback={
+          <div className=" text-center">
+            <Loader />
+          </div>
+        }
+      >
+        {Loading && <Loader /> ? null : (
+          <div className="mt-16 prompt_layout">
+            {Array.isArray(data) ? (
+              data.map((prompt) => (
+                <PromptCard
+                  key={prompt._id}
+                  prompt={prompt}
+                  handleEdit={() => {
+                    handleEdit && handleEdit(prompt);
+                  }}
+                  handleDelete={() => {
+                    handleDelete && handleDelete(prompt);
+                  }}
+                />
+              ))
+            ) : (
+              <></>
+            )}
+          </div>
         )}
-      </div>
+      </Suspense>
     </section>
   );
 };
