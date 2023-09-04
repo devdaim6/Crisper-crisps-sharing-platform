@@ -5,56 +5,19 @@ import Link from "next/link";
 import PromptCard from "@components/PromptCard";
 // import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";
-const PromptCardList = ({ prompts, handleTagClick, SearchedResults }) => {
-  return (
-    <div className="mt-16 prompt_layout">
-      {SearchedResults ? (
-        Array.isArray(prompts) ? (
-          prompts.map((prompt) => (
-            <PromptCard
-              key={prompt._id}
-              prompt={SearchedResults}
-              handleTagClick={handleTagClick}
-            />
-          ))
-        ) : (
-          <></>
-        )
-      ) : Array.isArray(prompts) ? (
-        prompts.map((prompt) => (
-          <PromptCard
-            key={prompt._id}
-            prompt={prompt}
-            handleTagClick={handleTagClick}
-          />
-        ))
-      ) : (
-        <></>
-      )}
-    </div>
-  );
-};
+import PromptCardList from "@components/PromptCardList";
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [prompts, setPrompts] = useState("");
   const [loadingState, setLoadingState] = useState(false);
+  const [searchedState, setSearchedState] = useState(false);
   const [searchedResults, setSearchedResults] = useState([]);
-  const [searchTimeout, setSearchTimeout] = useState(null);
-  const router = useRouter();
+  // const [searchTimeout, setSearchTimeout] = useState(null);
+  // const router = useRouter();
   const handleSearchChange = (e) => {
-    // e.preventDefault();
-
-    clearTimeout(searchTimeout);
-    setSearchText(e.target.value);
-
-    // debounce method
-    setSearchTimeout(
-      setTimeout(() => {
-        const searchResult = filterPrompts(searchText);
-        console.log(searchResult);
-        setSearchedResults(searchResult);
-      }, 500)
-    );
+    e.preventDefault();
+    setSearchedState(true);
+    setSearchedResults(filterPrompts(searchText));
   };
 
   const filterPrompts = (searchText) => {
@@ -62,6 +25,7 @@ const Feed = () => {
     return prompts.filter(
       (item) =>
         regex.test(item.creator.username) ||
+        regex.test(item.creator.email) ||
         regex.test(item.tag) ||
         regex.test(item.prompt)
     );
@@ -80,10 +44,9 @@ const Feed = () => {
   }, []);
 
   const handleTagClick = (tagName) => {
-    setSearchText(tagName);
-    const searchResult = filterPrompts(tagName);
-
-    setSearchedResults(searchResult);
+    setSearchedState(true);
+    // setSearchText(tagName);
+    setSearchedResults(filterPrompts(tagName));
   };
 
   return (
@@ -94,22 +57,28 @@ const Feed = () => {
           placeholder="Search for a @username or tag"
           value={searchText}
           onChange={(e) => {
-            handleSearchChange(e);
+            setSearchText(e.target.value);
           }}
           required
           className="search_input peer"
         />
+        <button className='mx-2 outline_btn'
+        onClick={handleSearchChange} type="button">
+          Search
+        </button>
       </form>
 
-      {searchedResults && (
+      {searchedState ? (
         <PromptCardList
-          SearchedResults={searchedResults}
+          search={searchedResults}
           handleTagClick={handleTagClick}
         />
-      ) ? (
-        <PromptCardList prompts={prompts} handleTagClick={handleTagClick} />
       ) : (
-        <></>
+        <PromptCardList
+          prompts={prompts}
+          // SearchedResults={searchedResults}
+          handleTagClick={handleTagClick}
+        />
       )}
     </section>
   );
