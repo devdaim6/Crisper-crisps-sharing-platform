@@ -36,15 +36,14 @@ const Nav = () => {
 
       {/* Desktop nav */}
       <div className="sm:flex hidden">
-      <button
-      className="mx-2 outline_btn"
-     
-        onClick={() => {
-          router.refresh();
-        }}
-      >
-        Refresh
-      </button>
+        <button
+          className="mx-2 outline_btn"
+          onClick={() => {
+            router.refresh();
+          }}
+        >
+          Refresh
+        </button>
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
@@ -53,8 +52,11 @@ const Nav = () => {
             <button
               type="button"
               onClick={() => {
-                signOut({ callbackUrl: 'http://localhost:3000/' || 'https://crisper-prompts.vercel.app/' });
-                
+                signOut({
+                  callbackUrl:
+                    "http://localhost:3000/" ||
+                    "https://crisper-prompts.vercel.app/",
+                });
               }}
               className="outline_btn"
             >
@@ -89,7 +91,14 @@ const Nav = () => {
 
       {/* Mobile nav */}
       <div className="sm:hidden flex relative">
-      
+        <button
+          className="mx-2 outline_btn"
+          onClick={() => {
+            router.refresh();
+          }}
+        >
+          Refresh
+        </button>
         {session?.user ? (
           <div className="flex">
             <Image
@@ -124,8 +133,11 @@ const Nav = () => {
                   type="button"
                   onClick={() => {
                     setToggleDropdown(false);
-                    signOut({ callbackUrl: 'http://localhost:3000/' || 'https://crisper-prompts.vercel.app/' });
-                   
+                    signOut({
+                      callbackUrl:
+                        "http://localhost:3000/" ||
+                        "https://crisper-prompts.vercel.app/",
+                    });
                   }}
                   className="mt-5 w-full black_btn"
                 >

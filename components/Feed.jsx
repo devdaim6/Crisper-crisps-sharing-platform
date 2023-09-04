@@ -5,10 +5,22 @@ import Link from "next/link";
 import PromptCard from "@components/PromptCard";
 // import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";
-const PromptCardList = ({ prompts, handleTagClick }) => {
+const PromptCardList = ({ prompts, handleTagClick, SearchedResults }) => {
   return (
     <div className="mt-16 prompt_layout">
-      {Array.isArray(prompts) ? (
+      {SearchedResults ? (
+        Array.isArray(prompts) ? (
+          prompts.map((prompt) => (
+            <PromptCard
+              key={prompt._id}
+              prompt={SearchedResults}
+              handleTagClick={handleTagClick}
+            />
+          ))
+        ) : (
+          <></>
+        )
+      ) : Array.isArray(prompts) ? (
         prompts.map((prompt) => (
           <PromptCard
             key={prompt._id}
@@ -27,29 +39,34 @@ const Feed = () => {
   const [prompts, setPrompts] = useState("");
   const [loadingState, setLoadingState] = useState(false);
   const [searchedResults, setSearchedResults] = useState([]);
-  // const [searchTimeout, setSearchTimeout] = useState(null);
+  const [searchTimeout, setSearchTimeout] = useState(null);
   const router = useRouter();
   const handleSearchChange = (e) => {
-    setSearchText(e.target.value);
-    // clearTimeout(searchTimeout);
+    // e.preventDefault();
 
-    filterCall(e);
+    clearTimeout(searchTimeout);
+    setSearchText(e.target.value);
+
+    // debounce method
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResult = filterPrompts(searchText);
+        console.log(searchResult);
+        setSearchedResults(searchResult);
+      }, 500)
+    );
   };
 
   const filterPrompts = (searchText) => {
     const regex = new RegExp(searchText, "i"); // 'i' flag for case-insensitive search
     return prompts.filter(
       (item) =>
-        regex.test(item.creator.name) ||
+        regex.test(item.creator.username) ||
         regex.test(item.tag) ||
         regex.test(item.prompt)
     );
   };
 
-  const filterCall = (e) => {
-    const searchResult = filterPrompts(e.target.value);
-    setSearchedResults(searchResult);
-  };
   useEffect(() => {
     const fetchPrompts = async () => {
       setLoadingState(true);
@@ -64,8 +81,8 @@ const Feed = () => {
 
   const handleTagClick = (tagName) => {
     setSearchText(tagName);
-
     const searchResult = filterPrompts(tagName);
+
     setSearchedResults(searchResult);
   };
 
@@ -76,19 +93,23 @@ const Feed = () => {
           type="text"
           placeholder="Search for a @username or tag"
           value={searchText}
-          onChange={handleSearchChange}
+          onChange={(e) => {
+            handleSearchChange(e);
+          }}
           required
           className="search_input peer"
         />
       </form>
-    
-      {loadingState && <Loading /> ? null : searchText ? (
+
+      {searchedResults && (
         <PromptCardList
-          data={searchedResults}
+          SearchedResults={searchedResults}
           handleTagClick={handleTagClick}
         />
-      ) : (
+      ) ? (
         <PromptCardList prompts={prompts} handleTagClick={handleTagClick} />
+      ) : (
+        <></>
       )}
     </section>
   );
