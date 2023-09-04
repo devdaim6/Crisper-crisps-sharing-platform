@@ -8,7 +8,6 @@ const Form = ({ type, crisp, setCrisp, submitting, handleSubmit }) => {
       </h1>
       <p className="desc text-left max-w-md">{type} and Share Crisps</p>
       <form
-        
         onSubmit={handleSubmit}
         className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
       >
@@ -29,7 +28,6 @@ const Form = ({ type, crisp, setCrisp, submitting, handleSubmit }) => {
         <label htmlFor="">
           <span className="font-satoshi font-semibold text-base text-grey-700">
             HashTags{" "}
-            
           </span>
         </label>
         <input
@@ -43,13 +41,15 @@ const Form = ({ type, crisp, setCrisp, submitting, handleSubmit }) => {
         ></input>
 
         <div className="flex-end mx-3 mb-5 gap-4">
-          <Link href="/" className='text-grey-500 text-sm'>Cancel</Link>
-          <button 
-          type='submit'
-          disabled={submitting}
-          className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white "
+          <Link href="/" className="text-grey-500 text-sm">
+            Cancel
+          </Link>
+          <button
+            type="submit"
+            disabled={submitting}
+            className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white "
           >
-{submitting ? `...` : type}
+            {submitting ? `...` : type}
           </button>
         </div>
       </form>
