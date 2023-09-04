@@ -17,12 +17,14 @@ const Profile = ({ name, email, desc, data, handleEdit, handleDelete }) => {
           {email}
         </span>
       </p>
-      {/* <div className="container "> */}
-      <p className="head_text text-center text-satoshi ">
-        <span className=" orange_gradient ">Crisps</span>
-      </p>
+
+      {data.length > 0 && (
+        <p className="head_text text-center text-satoshi ">
+          <span className=" orange_gradient ">Crisps</span>
+        </p>
+      )}
       <div className="mt-16 prompt_layout">
-        {data.length > 1 ? (
+        {Array.isArray(data) ? (
           data.map((prompt) => (
             <PromptCard
               key={prompt._id}
@@ -36,12 +38,9 @@ const Profile = ({ name, email, desc, data, handleEdit, handleDelete }) => {
             />
           ))
         ) : (
-          <span className="flex flex-end ml-20" style={{position:"absolute",left:"47%"}}>
-            No Crisps
-          </span>
+          <></>
         )}
       </div>
-      {/* </div> */}
     </section>
   );
 };

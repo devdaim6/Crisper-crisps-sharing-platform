@@ -14,6 +14,7 @@ const MyProfile = () => {
       const res = await fetch(`/api/users/${session?.user.id}/prompts`);
       const data = await res.json();
       setPrompts(data);
+      console.log(data)
     };
 
     if (session?.user.id) fetchPrompts();

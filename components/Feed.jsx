@@ -2,10 +2,10 @@
 import { useState, useEffect } from "react";
 import PromptCard from "./PromptCard";
 
-const PromptCardList = ({ data, handleTagClick }) => {
+const PromptCardList = ({ prompts, handleTagClick }) => {
   return (
     <div className="mt-16 prompt_layout">
-      {Array.isArray(data)?(data.map((prompt) => (
+      {Array.isArray(prompts)?(prompts.map((prompt) => (
         <PromptCard
           key={prompt._id}
           prompt={prompt}
@@ -30,7 +30,7 @@ const Feed = () => {
       const res = await fetch("/api/prompt");
       const data = await res.json();
       setPrompts(data);
-      // console.log(data)
+      console.log(data)
     };
     fetchPrompts();
   }, []);
@@ -47,7 +47,7 @@ const Feed = () => {
           className="search_input peer"
         />
       </form>
-      <PromptCardList data={prompts} handleTagClick={() => {}} />
+      <PromptCardList prompts={prompts} handleTagClick={() => {}} />
     </section>
   );
 };

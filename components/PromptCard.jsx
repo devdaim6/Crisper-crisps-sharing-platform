@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-const PromptCard = ({ prompt, handleTagClick ,handleEdit,handleDelete }) => {
+const PromptCard = ({ prompt, handleTagClick, handleEdit, handleDelete }) => {
   const [copied, setCopied] = useState("");
   const { data: session } = useSession();
   const pathName = usePathname();
@@ -15,6 +15,8 @@ const PromptCard = ({ prompt, handleTagClick ,handleEdit,handleDelete }) => {
       setCopied("");
     }, 5000);
   };
+
+  const router = useRouter();
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
@@ -35,10 +37,14 @@ const PromptCard = ({ prompt, handleTagClick ,handleEdit,handleDelete }) => {
             </p>
           </div>
         </div>
-        <div className="copy_btn" onClick={() => {}}>
+        <div
+          className="copy_btn"
+          onClick={() => {
+            handleCopy();
+          }}
+        >
           <Image
             alt=" "
-            onClick={handleCopy}
             src={
               copied === prompt.prompt
                 ? "/assets/icons/tick.svg"
