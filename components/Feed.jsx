@@ -1,37 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect, lazy } from "react";
 
-import PromptCard from "@components/PromptCard";
+import Loading from "./Loading";
 
-const PromptCardList = ({ prompts, search, handleTagClick }) => {
-  return (
-    <div className="mt-16 prompt_layout">
-      {search ? (
-        search ? (
-          search.map((res) => (
-            <PromptCard
-              key={res._id}
-              prompt={res}
-              handleTagClick={handleTagClick}
-            />
-          ))
-        ) : (
-          <></>
-        )
-      ) : Array.isArray(prompts) ? (
-        prompts.map((prompt) => (
-          <PromptCard
-            key={prompt._id}
-            prompt={prompt}
-            handleTagClick={handleTagClick}
-          />
-        ))
-      ) : (
-        <></>
-      )}
-    </div>
-  );
-};
+const PromptCardList = lazy(() => import("./PromptCardList"));
 
 const Feed = () => {
   // States
@@ -102,11 +74,13 @@ const Feed = () => {
       </form>
 
       {searchedState ? (
-        <PromptCardList
-          search={searchedResults}
-          handleTagClick={handleTagClick}
-        />
-      ) : (
+        loadingState && <Loading /> ? null : (
+          <PromptCardList
+            search={searchedResults}
+            handleTagClick={handleTagClick}
+          />
+        )
+      ) : loadingState && <Loading /> ? null : (
         <PromptCardList prompts={prompts} handleTagClick={handleTagClick} />
       )}
     </section>

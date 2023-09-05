@@ -39,7 +39,7 @@ const Nav = () => {
         <button
           className="mx-2 outline_btn"
           onClick={() => {
-            router.refresh();
+           router.replace('/')
           }}
         >
           Refresh
