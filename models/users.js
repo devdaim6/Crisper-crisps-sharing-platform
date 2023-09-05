@@ -7,9 +7,15 @@ const UserSchema = new mongoose.Schema({
         unique: [true, 'Email already exists!'],
         required: [true, 'Email is required!'],
     },
+    app_name: {
+        type: String,
+        required: [true, 'Name is required!'],
+        // match: /^[a-zA-Z0-9]{8,20}$/,
+    },
     username: {
         type: String,
         required: [true, 'Username is required!'],
+        unique:true,
         match: /^[a-zA-Z0-9]{8,20}$/,
     },
     image: {

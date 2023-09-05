@@ -6,13 +6,14 @@ const PromptSchema = new mongoose.Schema({
     },
     prompt: {
         type: String,
-        required: [true, "Prompt is Required"]
+        required: [true, "Prompt is Required"],
     },
     tag: {
         type: String,
         required: [true, "Tag is Required"]
+    },
+    // date: { type: Date}
 
-    }
 })
 
 const Prompt = mongoose.models.Prompt || mongoose.model('Prompt', PromptSchema)

@@ -17,8 +17,7 @@ const PromptCard = ({ prompt, handleTagClick, handleEdit, handleDelete }) => {
     }, 5000);
   };
   const handleProfileClick = () => {
-    console.log(prompt);
-
+    // console.log(prompt.date)
     if (prompt.creator._id === session?.user.id) return router.push("/profile");
     else
       router.push(
@@ -41,10 +40,10 @@ const PromptCard = ({ prompt, handleTagClick, handleEdit, handleDelete }) => {
           />
           <div className="flex flex-col">
             <h3 className="font-satoshi font-semibold text-grey-700">
-              @{prompt.creator.username}
+              {prompt.creator.app_name}
             </h3>
             <p className="font-inter text-sm text-grey-300">
-              {prompt.creator.email}
+              @{prompt.creator.username}
             </p>
           </div>
         </div>

@@ -4,6 +4,7 @@ const PromptCard = lazy(() => import("@components/PromptCard"));
 import { Suspense } from "react";
 const Profile = ({
   name,
+  realname,
   email,
   desc,
   data,
