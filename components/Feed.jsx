@@ -1,10 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-// import Loading from "./Loading";
-// import Link from "next/link";
+
 import PromptCard from "@components/PromptCard";
-// import { useRouter } from "next/router";
-// import { useRouter } from "next/navigation";
+
 const PromptCardList = ({ prompts, search, handleTagClick }) => {
   return (
     <div className="mt-16 prompt_layout">
@@ -70,7 +68,7 @@ const Feed = () => {
       const data = await res.json();
       setPrompts(data);
       setLoadingState(false);
-      // console.log(data)
+      console.log(data);
     };
     fetchPrompts();
   }, []);
