@@ -42,7 +42,7 @@ const EditPrompt = () => {
         }),
       });
       if (res.ok) {
-        router.push("/profile");
+        router.push("/profile",{scroll:false});
       }
     } catch (error) {
       console.log(error);
