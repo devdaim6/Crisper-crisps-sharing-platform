@@ -8,7 +8,7 @@ const PromptCardList = lazy(() => import("./PromptCardList"));
 const Feed = () => {
   // States
   const [searchText, setSearchText] = useState("");
-  const [prompts, setPrompts] = useState("");
+  const [prompts, setPrompts] = useState([]);
   const [loadingState, setLoadingState] = useState(false);
   const [searchedState, setSearchedState] = useState(false);
   const [searchedResults, setSearchedResults] = useState([]);
@@ -34,15 +34,19 @@ const Feed = () => {
 
   // Fetching Data
   useEffect(() => {
-    const fetchPrompts = async () => {
-      setLoadingState(true);
-      const res = await fetch("/api/prompt");
-      const data = await res.json();
-      setPrompts(data);
-      setLoadingState(false);
-      console.log(data);
-    };
-    fetchPrompts();
+    try {
+      const fetchPrompts = async () => {
+        setLoadingState(true);
+        const res = await fetch("/api/prompt");
+        const data = await res.json();
+        setPrompts(data);
+        setLoadingState(false);
+        console.log(data);
+      };
+      fetchPrompts();
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   // Toggle onClick on Tags
