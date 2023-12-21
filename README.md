@@ -1,1 +1,1 @@
-https://crisper-prompts.vercel.app
+https://crisper-crisps.vercel.app
